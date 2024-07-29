@@ -2,6 +2,7 @@ package org.heetvadiya;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
     StringCalculator stringCalculator = new StringCalculator();
@@ -51,4 +52,10 @@ public class StringCalculatorTest {
         assertEquals(10,stringCalculator.add("//\"\n1\"2\"3\"4"));
     }
 
+    @Test
+    public void negetive_number_should_throw_exception(){
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("3,4,-8"),"Negatives not allowed -8 ");
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("-8"),"Negatives not allowed -8 ");
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("-7, -9, -10 , -11"),"Negatives not allowed -7, -9, -10, -11  ");
+    }
 }
