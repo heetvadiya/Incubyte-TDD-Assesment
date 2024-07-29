@@ -17,5 +17,11 @@ public class StringCalculatorTest {
         assertEquals(20,stringCalculator.add("20"));
     }
 
+    @Test
+    public void two_number_string_should_return_sum_of_two(){
+        assertEquals(3,stringCalculator.add("1,2"));
+        assertEquals(10, stringCalculator.add("6,4"));
+    }
+
 
 }
