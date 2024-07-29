@@ -23,5 +23,14 @@ public class StringCalculatorTest {
         assertEquals(10, stringCalculator.add("6,4"));
     }
 
+    @Test
+    public void any_amount_of_number_string_should_return_sum_of_all_those_number(){
+        assertEquals(3,stringCalculator.add("1,2"));
+        assertEquals(12,stringCalculator.add("6,4,2"));
+        assertEquals(24,stringCalculator.add("6,4,9,1,4"));
+        assertEquals(19, stringCalculator.add("1,2,4,1,2,3,2,4"));
+    }
+
+
 
 }
