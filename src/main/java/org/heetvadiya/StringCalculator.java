@@ -11,26 +11,25 @@ public class StringCalculator {
             return 0;
         }
         int sum = 0;
+        String delimiter = ",|\\n";
+        String [] numbers;
         if(input.startsWith("//")){
             int del_start_ind = input.indexOf("//");
             int del_end_ind = input.indexOf("\n");
 
-            String delimiter = input.substring(del_start_ind+2, del_end_ind);
+            delimiter = input.substring(del_start_ind+2, del_end_ind);
 
-            String onlynumbers = input.substring(del_end_ind+1, input.length());
+            String onlyNumbers = input.substring(del_end_ind+1);
 
-            String[] numbers = onlynumbers.split(delimiter);
-            for(String number : numbers) {
-                sum += parseInt(number);
-            }
+            numbers = onlyNumbers.split(delimiter);
         }
         else{
-            String[] numbers = input.split(",|\\n");
-            for(String number : numbers) {
-                sum += parseInt(number);
-            }
+            numbers = input.split(delimiter);
         }
 
+        for(String number : numbers) {
+            sum += parseInt(number);
+        }
         return sum;
     }
 }
