@@ -31,6 +31,12 @@ public class StringCalculatorTest {
         assertEquals(19, stringCalculator.add("1,2,4,1,2,3,2,4"));
     }
 
+    @Test
+    public void newline_as_delimeter_should_also_work(){
+        assertEquals(3,stringCalculator.add("1\n2"));
+        assertEquals(19,stringCalculator.add("6\n4\n9"));
+        assertEquals(6, stringCalculator.add("1\n2,3"));
+    }
 
 
 }
