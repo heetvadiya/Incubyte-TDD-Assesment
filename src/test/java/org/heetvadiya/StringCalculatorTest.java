@@ -38,5 +38,10 @@ public class StringCalculatorTest {
         assertEquals(6, stringCalculator.add("1\n2,3"));
     }
 
+    @Test
+    public void given_different_delimiter_should_work(){
+        assertEquals(3,stringCalculator.add("//;\n1;2"));
+        assertEquals(6,stringCalculator.add("//;\n1;2;3"));
+    }
 
 }
