@@ -58,4 +58,10 @@ public class StringCalculatorTest {
         assertThrows(IllegalArgumentException.class,()->stringCalculator.add("-8"),"Negatives not allowed -8 ");
         assertThrows(IllegalArgumentException.class,()->stringCalculator.add("-7, -9, -10 , -11"),"Negatives not allowed -7, -9, -10, -11  ");
     }
+
+    @Test
+    public void numbers_bigger_than_1000_should_be_ignored(){
+        assertEquals(3, stringCalculator.add("1002,3"));
+        assertEquals(7 , stringCalculator.add("1001,1,2,3,1"));
+    }
 }
