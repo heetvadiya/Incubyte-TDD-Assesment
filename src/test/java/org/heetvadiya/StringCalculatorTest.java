@@ -46,6 +46,7 @@ public class StringCalculatorTest {
     public void given_different_delimiter_should_work(){
         assertEquals(3,stringCalculator.add("//;\n1;2"));
         assertEquals(6,stringCalculator.add("//;\n1;2;3"));
+        assertEquals(6,stringCalculator.add("//>\n1>2>3"));
     }
 
     @Test
@@ -76,5 +77,11 @@ public class StringCalculatorTest {
         assertEquals(70,stringCalculator.sumOfNumbers(new String[]{"10","20","1002","40"}, negNumbers));
         assertEquals(20, stringCalculator.sumOfNumbers(new String[]{"10", "-90", "5" , "4" , "1", "1001"}, negNumbers));
         assertTrue(negNumbers.contains("-90"));
+    }
+
+    @Test
+    public void given_delimiter_with_any_length_should_work(){
+        assertEquals(3,stringCalculator.add("//[***]\n1***2"));
+        assertEquals(6,stringCalculator.add("//[***]\n1*2*3"));
     }
 }
