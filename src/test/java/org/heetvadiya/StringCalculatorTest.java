@@ -81,7 +81,16 @@ public class StringCalculatorTest {
 
     @Test
     public void given_delimiter_with_any_length_should_work(){
-        assertEquals(3,stringCalculator.add("//[***]\n1***2"));
-        assertEquals(6,stringCalculator.add("//[***]\n1*2*3"));
+        assertEquals(3,stringCalculator.add("//[;;;]\n1;;;2"));
+        assertEquals(6,stringCalculator.add("//[;;;]\n1;;;2;;;3"));
+        assertEquals(8,stringCalculator.add("//[***]\n1***2***4***1"));
+    }
+
+    @Test
+    public void escapeSpecialChars_method_should_escape_special_chars(){
+        assertEquals("\\*", stringCalculator.escapeSpecialChars("*"));
+        assertEquals("\\\\", stringCalculator.escapeSpecialChars("\\"));
+        assertEquals("\\[", stringCalculator.escapeSpecialChars("["));
+
     }
 }

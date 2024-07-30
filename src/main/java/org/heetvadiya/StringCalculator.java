@@ -9,7 +9,6 @@ import static java.lang.Integer.parseInt;
 public class StringCalculator {
 
     public String DELIMITER = "[,\\n]"; // Default delimiters : "," and "\n"
-    public final String[] ESC_CHARS = new String[]{ "\n" , "\t" , "\r" , "\f" , "\b" , "\\" , "\"" };
 
     public int sumOfNumbers(String[] numArray , List<String> negNumbers){
         int tempSum = 0;
@@ -25,6 +24,13 @@ public class StringCalculator {
         return tempSum;
     }
 
+    public String escapeSpecialChars(String delimiter) {
+        if (delimiter.isEmpty()) {
+            return "\\Q\\E"; // Return a neutral pattern if delimiter is empty
+        }
+        return delimiter.replaceAll("([\\[\\]\\\\*+?.()|^$])", "\\\\$1");
+    }
+
     public int add(String input) {
         if(input.isEmpty()){
             return 0;
@@ -35,16 +41,25 @@ public class StringCalculator {
         List<String> negativeNumbers = new ArrayList<>();
 
         if(input.startsWith("//")){
-            int delimiter_start_ind = input.indexOf("//");
-            int delimiter_end_ind = input.indexOf("\n");
+            int delimiterStartInd = input.indexOf("//") + 2;
+            int delimiterEndInd = input.indexOf("\n");
 
-            DELIMITER = input.substring(delimiter_start_ind+2, delimiter_end_ind);
+            String delimiterSection = input.substring(delimiterStartInd, delimiterEndInd);
 
-            input = input.substring(delimiter_end_ind+1);
+            if (delimiterSection.startsWith("[") && delimiterSection.endsWith("]")) {
+                delimiterSection = delimiterSection.substring(1, delimiterSection.length() - 1);
+                String[] delimiters = delimiterSection.split("]\\[");
+                DELIMITER = Arrays.stream(delimiters)
+                        .map(this::escapeSpecialChars)
+                        .reduce("", (acc, d) -> acc + "|" + d);
 
-            if(Arrays.asList(ESC_CHARS).contains(DELIMITER)){
-                DELIMITER = "\\" + DELIMITER;
+                DELIMITER = DELIMITER.substring(1); // Remove the leading '|'
+            } else {
+                DELIMITER = escapeSpecialChars(delimiterSection);
             }
+
+            input = input.substring(delimiterEndInd+1);
+
         }
 
         numbers = input.split(DELIMITER);
