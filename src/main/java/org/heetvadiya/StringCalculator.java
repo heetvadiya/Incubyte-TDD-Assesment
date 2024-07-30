@@ -36,7 +36,8 @@ public class StringCalculator {
 
         if (deliSection.startsWith("[") && deliSection.endsWith("]")) {
             deliSection = deliSection.substring(1, deliSection.length() - 1);
-            String[] delimiters = deliSection.split("]\\[");
+
+            String[] delimiters = deliSection.split("]\\["); // splitting string with ][ to obtain different delimiters
             delimiter = Arrays.stream(delimiters)
                     .map(this::escapeSpecialChars)
                     .reduce("", (acc, d) -> acc + "|" + d);
