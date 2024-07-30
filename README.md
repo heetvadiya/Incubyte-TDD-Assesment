@@ -1,13 +1,14 @@
-# Incubyte TDD Assesment
+# Incubyte TDD Assessment
 
-This repository contains a simple implementation of a String Calculator, following the Test-Driven Development (TDD) approach. The calculator processes strings of numbers, handling different delimiters and supporting negative number validation.
+This repository contains a simple implementation of a String Calculator, following the Test-Driven Development (TDD) approach. The calculator processes strings of numbers and returns the sum of those numbers seperated by delimiters.
 
-`StringCalculator` class, provides a method `add(String numbers)` which performs the calculation based on the input string.
+---
+The `StringCalculator` class provides a method `add(String numbers)` which performs the calculation based on the input string.
 
 ### Method Signature
 
 ```java
-public int add(String numbers)
+public int add(String numbers);
 ```
 
 ### Examples
@@ -17,6 +18,21 @@ public int add(String numbers)
 - `"1,5"` → `6`
 - `"1\n2,3"` → `6`
 - `"//;\n1;2"` → `3`
+- `"1\n2"` → `3`
+- `"6\n4\n9"` → `19`
+- `"1\n2,3"` → `6`
+- `"//\\\n1\\2"` → `3`
+- `"//\t\n1\t2\t3"` → `6`
+- `"//\"\n1\"2\"3\"4"` → `10`
+- `"3,4,-8"` → Throws exception with message `"Negative numbers not allowed: -8"`
+- `"-7, -9, -10 , -11"` → Throws exception with message `"Negative numbers not allowed: -7, -9, -10, -11"`
+- `"1001,1,2,3,1"` → `7`
+- `"1001\n1\n2\n3\n1"` → `7`
+- `"//[;;;]\n1;;;2;;;3"` → `6`
+- `"//[***]\n1***2***4***1"` → `8`
+- `"//[;;;][===]\n1;;;20===5"` → `26`
+- `"//[***][;;][+++++]\n1***2+++++4;;1"` → `8`
+- `"//[]\n1241"` → `8`
 
 ## Test Cases
 
@@ -26,55 +42,46 @@ The test class `StringCalculatorTest` contains various test cases to ensure the 
 
 1. **Empty String Should Return 0**
 
-   - **Test**: `empty_string_should_return_0`
-   - **Description**: Verifies that an empty string returns 0.
-   - **Example**: `""` → `0`
-
 2. **Single Number String Should Return That Number**
-
-   - **Test**: `single_number_string_should_return_that_number`
-   - **Description**: Checks if a single number string returns the number itself.
-   - **Examples**: `"1"` → `1`, `"20"` → `20`
 
 3. **Two Number String Should Return Sum of Two**
 
-   - **Test**: `two_number_string_should_return_sum_of_two`
-   - **Description**: Validates the sum of two comma-separated numbers.
-   - **Examples**: `"1,2"` → `3`, `"6,4"` → `10`
-
 4. **Any Amount of Number String Should Return Sum of All Those Numbers**
-
-   - **Test**: `any_amount_of_number_string_should_return_sum_of_all_those_number`
-   - **Description**: Ensures the sum of multiple comma-separated numbers is computed correctly.
-   - **Examples**: `"6,4,2"` → `12`, `"6,4,9,1,4"` → `24`, `"1,2,4,1,2,3,2,4"` → `19`
 
 5. **Newline as Delimiter Should Also Work**
 
-   - **Test**: `newline_as_delimeter_should_also_work`
-   - **Description**: Confirms that new lines can be used as delimiters along with commas.
-   - **Examples**: `"1\n2"` → `3`, `"6\n4\n9"` → `19`, `"1\n2,3"` → `6`
-
 6. **Given Different Delimiter Should Work**
-
-   - **Test**: `given_different_delimiter_should_work`
-   - **Description**: Validates the use of a custom delimiter specified in the input string.
-   - **Examples**: `"//;\n1;2"` → `3`, `"//;\n1;2;3"` → `6`
 
 7. **Given Different Delimiter Should Work If It's an Escape Character**
 
-   - **Test**: `given_different_delimiter_should_work_if_its_escape_character`
-   - **Description**: Checks support for escape characters as delimiters.
-   - **Examples**: `"//\\\n1\\2"` → `3`, `"//\t\n1\t2\t3"` → `6`, `"//\"\n1\"2\"3\"4"` → `10`
-
 8. **Negative Number Should Throw Exception**
 
-   - **Test**: `negetive_number_should_throw_exception`
-   - **Description**: Ensures that an exception is thrown for negative numbers, listing all negative numbers in the message.
-   - **Examples**: `"3,4,-8"` → Throws exception with message `"Negative numbers not allowed: -8"`, `"-8"` → Throws exception with message `"Negative numbers not allowed: -8"`, `"-7, -9, -10 , -11"` → Throws exception with message `"Negative numbers not allowed: -7, -9, -10, -11"`
+9. **Numbers Bigger Than 1000 Should Be Ignored**
+
+10. **SumOfNumbers Method Should Return the Sum of the Numbers**
+
+11. **Given Delimiter with Any Length Should Work**
+
+12. **EscapeSpecialChars Method Should Escape Special Characters**
+
+13. **Given Multiple Delimiters with Any Length Should Work**
 
 ## Refactoring and Improvements
 
-Each feature was implemented incrementally, and tests were written to ensure functionality. The final implementation supports various delimiters, handles new lines, and validates negative numbers, providing a robust solution to the problem.
+Each feature was implemented incrementally, and tests were written to ensure functionality. `escapeSpecialChars` Method is added as a helper to handle special characters as delimiters.
+`processDelimiterSection` Method is added to help process delimiter string. `sumOfNumbers` Method is there to just sum the given numbers.
+
+## Regarding Commits
+I have ensured to follow TDD methodology throughout the assesment , and in order to showcase that I have made very Frequent commits (some had only 1 or 2 lines of changes).
+Which helps users to understand `Red Green Purple` Methodology of Adding a failing case, then writing only enough code to pass that single failing case and at last Refactoring. Repeat the process again for each new requirement.
+Hope Very frequent commit is not a bad practice.
+
+### References :
+- The Three Laws of TDD - Uncle Bob
+- Test-Driven Developement - Fireship
+
+### Test Coverage :
+![Test Coverage](https://github.com/heetvadiya/Incubyte-TDD-Assesment/blob/main/assets/TestCoverage.png)
 
 ## Thank You Incubyte
 
