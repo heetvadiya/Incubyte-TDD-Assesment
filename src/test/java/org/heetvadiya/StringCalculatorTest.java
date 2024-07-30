@@ -1,8 +1,11 @@
 package org.heetvadiya;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringCalculatorTest {
     StringCalculator stringCalculator = new StringCalculator();
@@ -63,5 +66,15 @@ public class StringCalculatorTest {
     public void numbers_bigger_than_1000_should_be_ignored(){
         assertEquals(3, stringCalculator.add("1002,3"));
         assertEquals(7 , stringCalculator.add("1001,1,2,3,1"));
+        assertEquals(7 , stringCalculator.add("1001\n1\n2\n3\n1"));
+    }
+
+    @Test
+    public void sumOfNumbers_method_should_return_the_sum_of_the_numbers(){
+        List<String> negNumbers = new ArrayList<>();
+        assertEquals(3,stringCalculator.sumOfNumbers(new String[]{"1","2"}, negNumbers));
+        assertEquals(70,stringCalculator.sumOfNumbers(new String[]{"10","20","1002","40"}, negNumbers));
+        assertEquals(20, stringCalculator.sumOfNumbers(new String[]{"10", "-90", "5" , "4" , "1", "1001"}, negNumbers));
+        assertTrue(negNumbers.contains("-90"));
     }
 }
