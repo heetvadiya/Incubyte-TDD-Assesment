@@ -94,4 +94,11 @@ public class StringCalculatorTest {
 
     }
 
+    @Test
+    public void given_multiple_delimiter_with_any_length_should_work(){
+        assertEquals(8,stringCalculator.add("//[;;;][===]\n1;;;2===5"));
+        assertEquals(23,stringCalculator.add("//[;;;][+++]\n1+++2;;;3+++8+++9"));
+        assertEquals(8,stringCalculator.add("//[***][;;][+++++]\n1***2+++++4;;1"));
+    }
+
 }
