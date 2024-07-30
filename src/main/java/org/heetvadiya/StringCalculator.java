@@ -31,6 +31,24 @@ public class StringCalculator {
         return delimiter.replaceAll("([\\[\\]\\\\*+?.()|^$])", "\\\\$1");
     }
 
+    public String processDelimiterSection(String deliSection){
+        String delimiter = "";
+
+        if (deliSection.startsWith("[") && deliSection.endsWith("]")) {
+            deliSection = deliSection.substring(1, deliSection.length() - 1);
+            String[] delimiters = deliSection.split("]\\[");
+            delimiter = Arrays.stream(delimiters)
+                    .map(this::escapeSpecialChars)
+                    .reduce("", (acc, d) -> acc + "|" + d);
+
+            delimiter = delimiter.substring(1); // Remove the leading '|'
+        } else {
+            delimiter = escapeSpecialChars(deliSection);
+        }
+
+        return delimiter;
+    }
+
     public int add(String input) {
         if(input.isEmpty()){
             return 0;
@@ -46,17 +64,7 @@ public class StringCalculator {
 
             String delimiterSection = input.substring(delimiterStartInd, delimiterEndInd);
 
-            if (delimiterSection.startsWith("[") && delimiterSection.endsWith("]")) {
-                delimiterSection = delimiterSection.substring(1, delimiterSection.length() - 1);
-                String[] delimiters = delimiterSection.split("]\\[");
-                DELIMITER = Arrays.stream(delimiters)
-                        .map(this::escapeSpecialChars)
-                        .reduce("", (acc, d) -> acc + "|" + d);
-
-                DELIMITER = DELIMITER.substring(1); // Remove the leading '|'
-            } else {
-                DELIMITER = escapeSpecialChars(delimiterSection);
-            }
+            DELIMITER = processDelimiterSection(delimiterSection);
 
             input = input.substring(delimiterEndInd+1);
 
