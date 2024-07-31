@@ -58,9 +58,9 @@ public class StringCalculatorTest {
 
     @Test
     public void negetive_number_should_throw_exception(){
-        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("3,4,-8"),"Negatives not allowed -8 ");
-        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("-8"),"Negatives not allowed -8 ");
-        assertThrows(IllegalArgumentException.class,()->stringCalculator.add("-7, -9, -10 , -11"),"Negatives not allowed -7, -9, -10, -11  ");
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.containsNegetives(new String[]{"1","-2", "-9", "-987"}),"Negatives not allowed -2, -9, -987 ");
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.containsNegetives(new String[]{"1","-2"}),"Negatives not allowed -2");
+        assertThrows(IllegalArgumentException.class,()->stringCalculator.containsNegetives(new String[]{"-10","-3"}),"Negatives not allowed -10, -3");
     }
 
     @Test
@@ -72,11 +72,9 @@ public class StringCalculatorTest {
 
     @Test
     public void sumOfNumbers_method_should_return_the_sum_of_the_numbers(){
-        List<String> negNumbers = new ArrayList<>();
-        assertEquals(3,stringCalculator.sumOfNumbers(new String[]{"1","2"}, negNumbers));
-        assertEquals(70,stringCalculator.sumOfNumbers(new String[]{"10","20","1002","40"}, negNumbers));
-        assertEquals(20, stringCalculator.sumOfNumbers(new String[]{"10", "-90", "5" , "4" , "1", "1001"}, negNumbers));
-        assertTrue(negNumbers.contains("-90"));
+        assertEquals(3,stringCalculator.sumOfNumbers(new String[]{"1","2"}));
+        assertEquals(70,stringCalculator.sumOfNumbers(new String[]{"10","20","1002","40"}));
+        assertEquals(110, stringCalculator.sumOfNumbers(new String[]{"10", "90", "5" , "4" , "1", "1001"}));
     }
 
     @Test
