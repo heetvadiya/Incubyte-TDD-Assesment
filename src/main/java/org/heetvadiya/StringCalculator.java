@@ -10,13 +10,15 @@ public class StringCalculator {
 
     public String DELIMITER = "[,\\n]"; // Default delimiters : "," and "\n"
 
-    public void containsNegetives(String[] numArray){
+    public boolean containsNegetives(String[] numArray){
+        boolean conNeg = false;
         List<String> negativeNumbers = new ArrayList<>();
 
         for(String number : numArray){
             int numInt = parseInt(number);
-            if(numInt < 0){
+            if(numInt < 0) {
                 negativeNumbers.add(number);
+                conNeg = true;
             }
         }
 
@@ -24,6 +26,7 @@ public class StringCalculator {
             String negativeNumbersList = String.join(", ", negativeNumbers);
             throw new IllegalArgumentException("Negative numbers not allowed: " + negativeNumbersList);
         }
+        return conNeg;
     }
 
     public int sumOfNumbers(String[] numArray){
@@ -85,7 +88,9 @@ public class StringCalculator {
 
         numbers = input.split(DELIMITER);
 
-        containsNegetives(numbers);
+        if(containsNegetives(numbers)){
+            return -1;
+        }
 
         sum = sumOfNumbers(numbers);
 
