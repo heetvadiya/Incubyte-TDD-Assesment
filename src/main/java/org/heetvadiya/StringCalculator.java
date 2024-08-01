@@ -2,6 +2,7 @@ package org.heetvadiya;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -10,33 +11,36 @@ public class StringCalculator {
 
     public String DELIMITER = "[,\\n]"; // Default delimiters : "," and "\n"
 
-    public boolean containsNegetives(String[] numArray){
-        boolean conNeg = false;
+    public void containsNegetives(String[] numArray){
         List<String> negativeNumbers = new ArrayList<>();
 
         for(String number : numArray){
             int numInt = parseInt(number);
             if(numInt < 0) {
                 negativeNumbers.add(number);
-                conNeg = true;
             }
         }
 
-        if(!negativeNumbers.isEmpty()){
+        if(!negativeNumbers.isEmpty()) {
             String negativeNumbersList = String.join(", ", negativeNumbers);
             throw new IllegalArgumentException("Negative numbers not allowed: " + negativeNumbersList);
         }
-        return conNeg;
     }
 
     public int sumOfNumbers(String[] numArray){
+        HashSet<Integer> setOfOccNumbers = new HashSet<Integer>();
+
         int tempSum = 0;
         for(String number : numArray) {
             int intNumber = parseInt(number);
             if(intNumber <= 1000){
-                tempSum += intNumber;
+                    setOfOccNumbers.add(intNumber);
             }
         }
+        for(Integer num : setOfOccNumbers) {
+            tempSum += num;
+        }
+
         return tempSum;
     }
 
@@ -66,7 +70,7 @@ public class StringCalculator {
         return delimiter;
     }
 
-    public int add(String input) {
+    public int add(String input) throws IllegalArgumentException{
         if(input.isEmpty()){
             return 0;
         }
@@ -88,10 +92,7 @@ public class StringCalculator {
 
         numbers = input.split(DELIMITER);
 
-        if(containsNegetives(numbers)){
-            return -1;
-        }
-
+        containsNegetives(numbers);
         sum = sumOfNumbers(numbers);
 
         return sum;
